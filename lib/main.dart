@@ -38,7 +38,7 @@ class MyApp extends StatelessWidget {
             iconTheme: IconThemeData(color: Colors.white),
           ),
         ),
-        initialRoute: Routes.rootPage,
+        initialRoute: Routes.initialPage,
         getPages: Routes.list,
         builder: (context, widget) {
           ScreenUtil.init(context);
