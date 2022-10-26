@@ -2,27 +2,56 @@ import 'package:get/get.dart';
 import 'package:just_audio/just_audio.dart';
 
 class AudioPlayerController extends GetxController {
-  AudioPlayer audioPlayer = AudioPlayer();
+  final AudioPlayer _audioPlayer = AudioPlayer();
 
   RxBool isPLaying = false.obs;
 
-  Duration duration = Duration.zero;
-  Duration position = Duration.zero;
-  Duration bufferPosition = Duration.zero;
+  Rx<Duration> duration = Duration.zero.obs;
+  Rx<Duration> position = Duration.zero.obs;
+  Rx<Duration> bufferPosition = Duration.zero.obs;
 
   @override
   void onInit() {
-    // audioPlayer.positionStream.listen((newPosition) {
-    //   position = newPosition;
-    // });
-    // audioPlayer.bufferedPositionStream.listen((newBufferPostion) {
-    //   bufferPosition = newBufferPostion;
-    // });
-    audioPlayer.playerStateStream.listen((state) {
-      isPLaying.value = audioPlayer.playerState.playing;
-      print(isPLaying);
+    _audioPlayer.positionStream.listen((newPosition) {
+      position.value = newPosition;
     });
-    // TODO: implement onInit
+    _audioPlayer.bufferedPositionStream.listen((newBufferPostion) {
+      bufferPosition.value = newBufferPostion;
+    });
+    _audioPlayer.playerStateStream.listen((state) {
+      isPLaying.value = _audioPlayer.playerState.playing;
+    });
     super.onInit();
+  }
+
+  @override
+  void dispose() {
+    _audioPlayer.dispose();
+    super.dispose();
+  }
+
+  void playAudio() async {
+    if (isPLaying.value) {
+      await _audioPlayer.pause();
+    } else {
+      if (position.value == Duration.zero) {
+        String url = 'http://www.harlancoben.com/audio/CaughtSample.mp3';
+        // set audio source
+        await _audioPlayer.setUrl(url);
+        // getting the duration of the audio
+        duration.value = _audioPlayer.duration ?? Duration.zero;
+        duration.value = _audioPlayer.duration ?? Duration.zero;
+        if (duration.value != Duration.zero) {
+          // if have duration play
+          _audioPlayer.play();
+        }
+      } else {
+        _audioPlayer.play();
+      }
+    }
+  }
+
+  void onSeek(Duration duration) {
+    _audioPlayer.seek(duration);
   }
 }

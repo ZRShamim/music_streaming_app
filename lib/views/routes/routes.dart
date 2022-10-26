@@ -7,7 +7,7 @@ class Routes {
   static var list = [
     GetPage(
       name: initialPage,
-      page: () => const AudioPlayerWidget(),
+      page: () => AudioPlayerWidget(),
     ),
   ];
 }
