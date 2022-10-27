@@ -32,6 +32,8 @@ class MyApp extends StatelessWidget {
       builder: (_, child) => GetMaterialApp(
         debugShowCheckedModeBanner: false,
         theme: ThemeData(
+          // primaryColor: CustomColors.mainGreen,
+          // primarySwatch: Colors.green,
           textTheme: GoogleFonts.poppinsTextTheme(Theme.of(context).textTheme),
           scaffoldBackgroundColor: CustomColors.mainBlack,
           appBarTheme: const AppBarTheme(

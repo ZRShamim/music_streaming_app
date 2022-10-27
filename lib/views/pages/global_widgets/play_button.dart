@@ -2,23 +2,27 @@ import 'package:flutter/material.dart';
 import 'package:music_streaming_app/views/utils/styles/custom_colors.dart';
 
 class PlayButton extends StatelessWidget {
-  const PlayButton({super.key, this.borderRadius = 20, this.width = 35});
+  const PlayButton(
+      {super.key, this.width = 35, this.onPressed, required this.icon});
 
-  final double borderRadius;
   final double width;
+  final VoidCallback? onPressed;
+  final IconData icon;
 
   @override
   Widget build(BuildContext context) {
+    final double borderRadius = width / 2;
     return CircleAvatar(
       radius: borderRadius,
+      backgroundColor: CustomColors.mainGreen,
       child: IconButton(
-        icon: const Icon(
-          Icons.play_arrow,
-          size: 20,
+        icon: Icon(
+          icon,
+          size: borderRadius,
+          color: CustomColors.mainBlack,
         ),
         iconSize: 50,
-        onPressed: () {},
-        // controller.playAudio(url),
+        onPressed: onPressed,
       ),
     );
   }
