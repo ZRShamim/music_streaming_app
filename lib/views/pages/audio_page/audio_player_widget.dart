@@ -10,20 +10,13 @@ class AudioPlayerWidget extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    String url = 'http://www.harlancoben.com/audio/CaughtSample.mp3';
     return Scaffold(
       appBar: AppBar(
         title: const Text('Audio Book'),
       ),
       body: Column(
         children: [
-          Obx(
-            () => ProgressBar(
-              progress: controller.position.value,
-              total: controller.duration.value,
-              buffered: controller.bufferPosition.value,
-              onSeek: (duration) => controller.onSeek(duration),
-            ),
-          ),
           // play/pause button
           CircleAvatar(
             radius: 35,
@@ -33,7 +26,36 @@ class AudioPlayerWidget extends StatelessWidget {
                   controller.isPLaying.value ? Icons.pause : Icons.play_arrow,
                 ),
                 iconSize: 50,
-                onPressed: controller.playAudio,
+                onPressed: () => controller.playAudio(url),
+              ),
+            ),
+          ),
+
+          const SizedBox(
+            height: 50,
+          ),
+
+          Container(
+            height: 120,
+            width: double.infinity,
+            decoration: BoxDecoration(
+              color: Colors.deepPurple,
+              borderRadius: BorderRadius.circular(20),
+            ),
+            child: Obx(
+              () => Center(
+                child: Padding(
+                  padding: const EdgeInsets.symmetric(horizontal: 15),
+                  child: ProgressBar(
+                    progress: controller.position.value,
+                    total: controller.duration.value,
+                    buffered: controller.bufferPosition.value,
+                    onSeek: (duration) => controller.onSeek(duration),
+                    baseBarColor: Colors.grey,
+                    progressBarColor: Colors.blueGrey,
+                    bufferedBarColor: Colors.cyan,
+                  ),
+                ),
               ),
             ),
           )

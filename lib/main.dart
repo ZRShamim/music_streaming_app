@@ -6,6 +6,8 @@ import 'package:get_storage/get_storage.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:music_streaming_app/views/routes/routes.dart';
 
+import 'views/utils/styles/custom_colors.dart';
+
 void main() async {
   WidgetsFlutterBinding.ensureInitialized();
 
@@ -31,11 +33,14 @@ class MyApp extends StatelessWidget {
         debugShowCheckedModeBanner: false,
         theme: ThemeData(
           textTheme: GoogleFonts.poppinsTextTheme(Theme.of(context).textTheme),
+          scaffoldBackgroundColor: CustomColors.mainBlack,
           appBarTheme: const AppBarTheme(
             elevation: 0,
             centerTitle: true,
-            backgroundColor: Colors.black,
-            iconTheme: IconThemeData(color: Colors.white),
+            backgroundColor: CustomColors.mainBlack,
+            iconTheme: IconThemeData(
+              color: Colors.white,
+            ),
           ),
         ),
         initialRoute: Routes.initialPage,
