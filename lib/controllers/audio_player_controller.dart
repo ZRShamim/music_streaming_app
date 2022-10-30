@@ -1,3 +1,4 @@
+import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:just_audio/just_audio.dart';
 import 'package:music_streaming_app/controllers/audio_controller.dart';
@@ -107,12 +108,21 @@ class AudioPlayerController extends GetxController {
   void backwardTen() async {}
 
   Future<void> getAudio() async {
-    await _audioPlayer
-        .setUrl(audioList[currentStreamIndex.value].url)
-        .then((value) {
-      setSpeed(1.0);
-      duration.value = _audioPlayer.duration!;
-    });
+    try {
+      await _audioPlayer
+          .setUrl(audioList[currentStreamIndex.value].url)
+          .then((value) {
+        setSpeed(1.0);
+        duration.value = _audioPlayer.duration!;
+      });
+    } catch (e) {
+      isPLaying.value = false;
+      Get.snackbar(
+        'Error',
+        'Somthing went wrong!',
+        backgroundColor: Colors.redAccent,
+      );
+    }
   }
 
   void onSeek(Duration duration) {
