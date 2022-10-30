@@ -35,11 +35,11 @@ class MyApp extends StatelessWidget {
           // primaryColor: CustomColors.mainGreen,
           // primarySwatch: Colors.green,
           textTheme: GoogleFonts.poppinsTextTheme(Theme.of(context).textTheme),
-          scaffoldBackgroundColor: CustomColors.mainBlack,
+          scaffoldBackgroundColor: CustomColors.black20,
           appBarTheme: const AppBarTheme(
             elevation: 0,
             centerTitle: true,
-            backgroundColor: CustomColors.mainBlack,
+            backgroundColor: CustomColors.black20,
             iconTheme: IconThemeData(
               color: Colors.white,
             ),

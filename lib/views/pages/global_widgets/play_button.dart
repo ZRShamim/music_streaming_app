@@ -14,12 +14,12 @@ class PlayButton extends StatelessWidget {
     final double borderRadius = width / 2;
     return CircleAvatar(
       radius: borderRadius,
-      backgroundColor: CustomColors.mainGreen,
+      backgroundColor: CustomColors.green49,
       child: IconButton(
         icon: Icon(
           icon,
           size: borderRadius,
-          color: CustomColors.mainBlack,
+          color: CustomColors.black20,
         ),
         iconSize: 50,
         onPressed: onPressed,

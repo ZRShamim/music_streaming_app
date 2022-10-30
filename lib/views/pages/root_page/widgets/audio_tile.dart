@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:music_streaming_app/views/utils/styles/custom_colors.dart';
 import 'package:music_streaming_app/views/utils/styles/custom_styles.dart';
 
 class AudioTile extends StatelessWidget {
@@ -21,7 +22,7 @@ class AudioTile extends StatelessWidget {
       onTap: onTap,
       child: Container(
         height: 120,
-        color: isPlaying ? const Color(0xFF2A2A2A) : Colors.transparent,
+        color: isPlaying ? CustomColors.black2A : Colors.transparent,
         child: Row(
           mainAxisAlignment: MainAxisAlignment.spaceBetween,
           children: [
