@@ -88,7 +88,7 @@ class Rootpage extends StatelessWidget {
                             onPressed: () {
                               controller.back();
                             },
-                            iconSize: 30.sp,
+                            iconSize: 25.sp,
                             icon: const Icon(
                               Icons.skip_previous,
                               color: Colors.white,
@@ -96,9 +96,24 @@ class Rootpage extends StatelessWidget {
                           ),
                           IconButton(
                             onPressed: () {
+                              // controller.back();
+                              Get.snackbar(
+                                'Not Implemented',
+                                'Working on it',
+                                backgroundColor: Colors.red,
+                              );
+                            },
+                            iconSize: 25.sp,
+                            icon: const Icon(
+                              Icons.download,
+                              color: Colors.white,
+                            ),
+                          ),
+                          IconButton(
+                            onPressed: () {
                               controller.smartPlay();
                             },
-                            iconSize: 45.sp,
+                            iconSize: 50.sp,
                             icon: Obx(
                               () => Icon(
                                 controller.isPLaying.value
@@ -110,9 +125,83 @@ class Rootpage extends StatelessWidget {
                           ),
                           IconButton(
                             onPressed: () {
+                              Get.bottomSheet(Container(
+                                decoration: const BoxDecoration(
+                                  color: Colors.black,
+                                  borderRadius: BorderRadius.only(
+                                    topLeft: Radius.circular(30),
+                                    topRight: Radius.circular(30),
+                                  ),
+                                ),
+                                child: Column(
+                                  children: [
+                                    const SizedBox(
+                                      height: 20,
+                                    ),
+                                    const Text(
+                                      'Set playing speed',
+                                      style: TextStyle(color: Colors.white),
+                                    ),
+                                    const SizedBox(
+                                      height: 20,
+                                    ),
+                                    TextButton(
+                                      onPressed: () {
+                                        controller.setSpeed(0.25);
+                                      },
+                                      child: const Text('0.25'),
+                                    ),
+                                    TextButton(
+                                      onPressed: () {
+                                        controller.setSpeed(0.5);
+                                      },
+                                      child: const Text('0.5'),
+                                    ),
+                                    TextButton(
+                                      onPressed: () {
+                                        controller.setSpeed(0.75);
+                                      },
+                                      child: const Text('0.75'),
+                                    ),
+                                    TextButton(
+                                      onPressed: () {
+                                        controller.setSpeed(1.0);
+                                      },
+                                      child: const Text('Normal'),
+                                    ),
+                                    TextButton(
+                                      onPressed: () {
+                                        controller.setSpeed(1.25);
+                                      },
+                                      child: const Text('1.25'),
+                                    ),
+                                    TextButton(
+                                      onPressed: () {
+                                        controller.setSpeed(1.5);
+                                      },
+                                      child: const Text('1.5'),
+                                    ),
+                                    TextButton(
+                                      onPressed: () {
+                                        controller.setSpeed(1.75);
+                                      },
+                                      child: const Text('1.75'),
+                                    ),
+                                  ],
+                                ),
+                              ));
+                            },
+                            iconSize: 25.sp,
+                            icon: const Icon(
+                              Icons.speed,
+                              color: Colors.white,
+                            ),
+                          ),
+                          IconButton(
+                            onPressed: () {
                               controller.next();
                             },
-                            iconSize: 30.sp,
+                            iconSize: 25.sp,
                             icon: const Icon(
                               Icons.skip_next,
                               color: Colors.white,

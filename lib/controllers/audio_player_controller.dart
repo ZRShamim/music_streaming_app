@@ -58,7 +58,6 @@ class AudioPlayerController extends GetxController {
       stop();
     }
     getAudio();
-
     resume();
   }
 
@@ -101,10 +100,17 @@ class AudioPlayerController extends GetxController {
     // s
   }
 
-  void getAudio() async {
+  void setSpeed(double speed) async {
+    await _audioPlayer.setSpeed(speed);
+  }
+
+  void backwardTen() async {}
+
+  Future<void> getAudio() async {
     await _audioPlayer
         .setUrl(audioList[currentStreamIndex.value].url)
         .then((value) {
+      setSpeed(1.0);
       duration.value = _audioPlayer.duration!;
     });
   }
