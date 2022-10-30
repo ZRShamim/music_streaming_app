@@ -1,5 +1,7 @@
 import 'package:get/get.dart';
 import 'package:just_audio/just_audio.dart';
+import 'package:music_streaming_app/controllers/audio_controller.dart';
+import 'package:music_streaming_app/models/audio.dart';
 
 class AudioPlayerController extends GetxController {
   final AudioPlayer _audioPlayer = AudioPlayer();
@@ -10,10 +12,19 @@ class AudioPlayerController extends GetxController {
   Rx<Duration> position = Duration.zero.obs;
   Rx<Duration> bufferPosition = Duration.zero.obs;
 
-  RxString _tempUrl = ''.obs;
+  Rx<int> currentStreamIndex = 0.obs;
+  var audioList = <Audio>[].obs;
+
+  // final RxString _tempUrl = ''.obs;
 
   @override
   void onInit() {
+    final AudioController audioController = Get.put(AudioController());
+
+    audioList = audioController.audioList;
+
+    getAudio();
+
     _audioPlayer.positionStream.listen((newPosition) {
       position.value = newPosition;
     });
@@ -32,28 +43,74 @@ class AudioPlayerController extends GetxController {
     super.dispose();
   }
 
-  void playAudio(String url) async {
+  void smartPlay() async {
+    print('smart play');
     if (isPLaying.value) {
-      await _audioPlayer.pause();
+      pause();
     } else {
-      if (_tempUrl.value != url) {
-        _tempUrl.value = url;
-        // if (position.value == Duration.zero) {
-        // set audio source
-        await _audioPlayer.setUrl(url);
-        // getting the duration of the audio
-        duration.value = _audioPlayer.duration ?? Duration.zero;
-        if (duration.value != Duration.zero) {
-          // if have duration play
-          _audioPlayer.play();
-        }
-      } else {
-        _audioPlayer.play();
-      }
+      resume();
     }
+  }
+
+  void play() async {
+    print('play');
+    if (isPLaying.value || position.value != Duration.zero) {
+      stop();
+    }
+    getAudio();
+
+    resume();
+  }
+
+  void resume() async {
+    _audioPlayer.play();
+  }
+
+  void pause() async {
+    print('pause');
+    await _audioPlayer.pause();
+  }
+
+  void stop() async {
+    print('stop');
+    await _audioPlayer.stop().then((_) {
+      position.value = Duration.zero;
+    });
+  }
+
+  void next() async {
+    print('next');
+    if (currentStreamIndex.value == audioList.length - 1) {
+      currentStreamIndex.value = 0;
+      play();
+    } else {
+      currentStreamIndex.value++;
+      play();
+    }
+  }
+
+  void back() async {
+    print('back');
+    if (currentStreamIndex.value == 0) {
+      currentStreamIndex.value = audioList.length - 1;
+      play();
+    } else {
+      currentStreamIndex.value--;
+      play();
+    }
+    // s
+  }
+
+  void getAudio() async {
+    await _audioPlayer
+        .setUrl(audioList[currentStreamIndex.value].url)
+        .then((value) {
+      duration.value = _audioPlayer.duration!;
+    });
   }
 
   void onSeek(Duration duration) {
     _audioPlayer.seek(duration);
   }
 }
+// }
